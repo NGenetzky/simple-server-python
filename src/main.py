@@ -5,9 +5,9 @@ SYS_DEVICES_LEDS = '/sys/devices/platform/leds/leds/'
 
 
 def led_brightness(name, value):
-    path = '{0}/{1}/brightness'.format(SYS_DEVICES_LEDS, name)
+    path = '{0}{1}/brightness'.format(SYS_DEVICES_LEDS, name)
     with open(path, 'w') as f:
-        f.write(value)
+        f.write('{:d}'.format(value))
 
 
 @app.route('/')
