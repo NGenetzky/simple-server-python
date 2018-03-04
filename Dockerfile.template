@@ -9,7 +9,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-python
 #    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set our working directory
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
 # Copy requirements.txt first for better cache on later pushes
 COPY ./requirements.txt /requirements.txt
@@ -18,10 +18,11 @@ COPY ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
 # This will copy all files in our root to the working  directory in the container
-COPY . ./
+COPY ./src/main.py /usr/bin/simple_server_python.py
 
 # switch on systemd init system in container
-ENV INITSYSTEM on
+# ENV INITSYSTEM on
 
-# main.py will run when container starts up on the device
-CMD ["python","src/main.py"]
+# simple_server_python.py will run when container starts up on the device
+CMD ["python","/usr/bin/simple_server_python.py"]
+EXPOSE 80
